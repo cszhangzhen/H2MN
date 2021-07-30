@@ -5,7 +5,6 @@ import torch.nn.functional as F
 from torch.nn.parameter import Parameter
 from torch_geometric.nn import global_add_pool, global_mean_pool, HypergraphConv
 from torch_geometric.nn.pool.topk_pool import topk
-from torch_geometric.utils import dense_to_sparse
 from torch_scatter import scatter_add
 from torch_scatter import scatter
 from torch_geometric.utils import degree
@@ -272,7 +271,7 @@ class CrossGraphConvolution(torch.nn.Module):
         # Construct batch fully connected graph in block diagonal matirx format
         for idx_i, idx_j, idx_x, idx_y in zip(shift_cum_num_nodes_x_left, cum_num_nodes_x_left, shift_cum_num_nodes_x_right, cum_num_nodes_x_right):
             adj[idx_i:idx_j, idx_x:idx_y] = 1.0
-        new_edge_index, _ = dense_to_sparse(adj)
+        new_edge_index, _ = self.dense_to_sparse(adj)
         row, col = new_edge_index
 
         assign_index1 = torch.stack([col, row], dim=0)
@@ -282,6 +281,12 @@ class CrossGraphConvolution(torch.nn.Module):
         out2 = self.cross_conv((x_left, x_right), assign_index2, N=x_left.size(0), M=x_right.size(0))
 
         return out1, out2
+
+    def dense_to_sparse(self, adj):
+        assert adj.dim() == 2
+        index = adj.nonzero(as_tuple=False).t().contiguous()
+        value = adj[index[0], index[1]]
+        return index, value
 
 
 class ReadoutModule(torch.nn.Module):

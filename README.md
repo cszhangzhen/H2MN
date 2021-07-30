@@ -36,12 +36,12 @@ More detailed information can be found [here](https://github.com/runningoat/hgmn
 ## Run
 Just execuate the following command for graph-graph classification task:
 ```
-python main_classification.py --datasets openssl_min50
+python main_classification.py --dataset openssl_min50
 ```
 
 Similarly, execuate the following command for graph-graph regression task:
 ```
-python main_regression.py --datasets AIDS700nef
+python main_regression.py --dataset AIDS700nef
 ```
 
 ## Citing
