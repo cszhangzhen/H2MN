@@ -47,10 +47,11 @@ python main_regression.py --dataset AIDS700nef
 ## Citing
 If you find H2MN useful for your research, please consider citing the following paper:
 ```
-@article{zhang2021graph,
+@inproceedings{zhang2021h2mn,
   title={H2MN: Graph Similarity Learning with Hierarchical Hypergraph Matching Networks},
   author={Zhang, Zhen and Bu, Jiajun and Ester, Martin and Li, Zhao and Yao, Chengwei and Yu, Zhi and Wang, Can},
-  journal={KDD},
+  booktitle={Proceedings of the 27th ACM SIGKDD Conference on Knowledge Discovery \& Data Mining},
+  pages={2274--2284},
   year={2021}
 }
 ``` 
